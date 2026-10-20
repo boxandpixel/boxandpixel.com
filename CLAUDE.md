@@ -285,7 +285,8 @@ Images live in `/public/images/`. Reference them as `/images/filename.ext`.
 | Favicon           | `/public/favicon.svg`             | `#56B6C2`                        | Root layout          |
 | Headshot          | `/public/images/brian-gunzenhauser.webp` | 600×600, pre-cropped circle, transparent corners | About (placeholder, from briangunzenhauser.com) |
 | Headshot (1x/2x)  | `/public/images/brian-gunzenhauser-384.webp` | 384×384 resize of the above, 27 KB | About `src`; the 600px original is the `srcset` fallback for 3x screens |
-| OG default image  | `/public/images/og-default.jpg`   | —                                | Metadata (not yet created) |
+| OG default image  | `/public/images/og-default.jpg`   | 1200×630, logo + home headline on the horizon backdrop | Share previews, every page (`Layout` `image` prop overrides) |
+| Apple touch icon  | `/public/apple-touch-icon.png`    | 180×180, cyan mark on `#0B0F17`  | iOS home screen, iMessage fallback |
 
 **The site is dark everywhere, so both header and footer use `logo-dark.svg`** (the light-ink variant). `logo.svg` is kept, recolored to match, for light contexts off-site — email signatures, decks, invoices.
 

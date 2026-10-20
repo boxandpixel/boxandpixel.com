@@ -12,17 +12,22 @@ interface Props {
   description?: string;
   /** Keeps utility pages (e.g. the post-submit thanks page) out of search. */
   noindex?: boolean;
+  /** Share-preview image (iMessage, Slack, social). 1200×630, site-relative. */
+  image?: string;
 }
 
 const {
   title,
   description = "Box + Pixel is a website experience company",
   noindex = false,
+  image = "/images/og-default.jpg",
 } = Astro.props;
 
 // Resolved against `site` in astro.config.mjs so every page declares itself
 // canonical, collapsing query-string and host variants onto one URL.
 const canonical = new URL(Astro.url.pathname, Astro.site);
+// Link previews need absolute URLs; crawlers don't resolve relative ones.
+const ogImage = new URL(image, Astro.site);
 ---
 
 <!doctype html>
@@ -34,12 +39,26 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#0b0f17" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     {/* Preload the Latin subsets so text paints in the real fonts without
         waiting for the CSS to be parsed first. */}
     <link rel="preload" href={figtreeLatin} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={geistMonoLatin} as="font" type="font/woff2" crossorigin />
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex" />}
+
+    {/* Link previews: iMessage, Slack, LinkedIn and friends read Open Graph;
+        X reads the twitter:card. */}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Box + Pixel" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Box + Pixel: The web studio that grows with you." />
+    <meta name="twitter:card" content="summary_large_image" />
     <title>{title}</title>
 
     <!-- Google tag (gtag.js). The ~150 KB library loads after the page has
