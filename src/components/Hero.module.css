@@ -36,7 +36,10 @@
 .display {
   font-size: var(--font-size-display);
   letter-spacing: -0.035em;
-  line-height: 0.95;
+  /* Below ~0.97 a descender on one line meets the i-dot or ascender on the
+     next (the g in "grows" hit the dot of "with" on phones). 1.04 leaves a
+     visible gap while still reading as one tight block. */
+  line-height: 1.04;
   max-width: 16ch;
 }
 
@@ -87,7 +90,7 @@
 /* Graded headline: full --color-heading at the top, easing toward muted at
    the bottom, so the block reads as lit from above. The highlight span sets
    its own color, which paints over the clipped gradient.
-   The gradient only fills the element's box, and at line-height 0.95 the
+   The gradient only fills the element's box, and at a tight line-height the
    descenders on the last line hang below it and get clipped. The padding
    extends the box to cover them; the negative margin keeps the spacing. */
 .stage .headline {
