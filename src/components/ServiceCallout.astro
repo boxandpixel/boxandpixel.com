@@ -1,0 +1,45 @@
+---
+import styles from "./ServiceCallout.module.css";
+
+interface Props {
+  /** Small label above the title, e.g. "Services" or "Focus". */
+  eyebrow?: string;
+  title: string;
+  /** Optional link out of the module. */
+  cta?: { href: string; label: string };
+  /**
+   * `surface` gives the band a raised fill so stacked modules alternate.
+   * `feature` lifts the content into a bordered card — for modules that ask
+   * for an action rather than describe something.
+   */
+  variant?: "default" | "surface" | "feature";
+}
+
+const { eyebrow, title, cta, variant = "default" } = Astro.props;
+---
+
+<section class={`${styles.callout} ${styles[variant]}`}>
+  {/* `bounds` holds the max-width and gutter so `inner` is free to become a
+      card in the feature variant without touching the viewport edges. */}
+  <div class={styles.bounds}>
+    <div class={styles.inner}>
+      <div class={styles.heading}>
+        {eyebrow && <p class={styles.eyebrow}>{eyebrow}</p>}
+        <h2 class={styles.title}>{title}</h2>
+      </div>
+
+      <div class={styles.body}>
+        <slot />
+        {
+          cta && (
+            <p class={styles.ctaWrap}>
+              <a class={styles.cta} href={cta.href}>
+                {cta.label}
+              </a>
+            </p>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</section>

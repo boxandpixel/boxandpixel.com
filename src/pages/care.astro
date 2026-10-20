@@ -1,0 +1,112 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import Section from "../components/Section.astro";
+import PlanTiers from "../components/PlanTiers.astro";
+import SplitList from "../components/SplitList.astro";
+import Faq from "../components/Faq.astro";
+import ServiceCallout from "../components/ServiceCallout.astro";
+import { plans, plansNote } from "../data/plans";
+---
+
+<Layout
+  title="Website care plans — Box + Pixel"
+  description="Monthly care plans for WordPress, Next.js, and Astro sites: security, updates, performance, and emergencies, from $1,000 a month."
+>
+  <Hero
+    headline="Someone is paid to watch your site."
+    highlight="watch your site"
+    subheading="Most site problems arrive without warning because nobody is looking. A care plan means someone is, so problems get caught before your customers find them."
+  />
+
+  {/* Bands: surface → default → surface → feature CTA. */}
+  <Section
+    eyebrow="Plans"
+    title="Pick the level of care"
+    intro="Every plan covers security, updates, and emergencies. Higher tiers add planned improvements and strategy."
+    variant="surface"
+  >
+    <PlanTiers plans={plans} note={plansNote} />
+  </Section>
+
+  <Section
+    eyebrow="Scope"
+    title="What a plan covers, and what it doesn't"
+    link={{ href: "/process", label: "How the work gets done" }}
+    intro="A care plan keeps the site you have healthy. New work is scoped and priced on its own, so the monthly fee never quietly turns into a build budget."
+  >
+    <SplitList
+      columns={[
+        {
+          title: "Covered by your plan",
+          items: [
+            "Security maintenance and updates",
+            "Content review and error checking",
+            "Emergency response when something breaks",
+            "Performance and technology improvements (Growth and Partner)",
+          ],
+        },
+        {
+          title: "Quoted separately",
+          tone: "muted",
+          items: [
+            "New features and new sections",
+            "New builds and redesigns",
+            "SEO campaigns and content writing, usually handled by your SEO vendor",
+          ],
+        },
+      ]}
+    />
+  </Section>
+
+  {/* TODO before launch — answers not decided yet, so they are left off the
+      page rather than guessed: response times per tier, minimum term, how to
+      cancel, what counts as an emergency, whether hosting is included. */}
+  <Section eyebrow="Questions" title="Before you sign up" variant="surface">
+    <Faq
+      items={[
+        {
+          question: "Do I own my site?",
+          answer:
+            "Your domain and hosting stay in your name, always. Box + Pixel works with access you grant, never in place of it.",
+        },
+        {
+          question: "Which platforms do you look after?",
+          answer: "WordPress, Next.js and Astro.",
+        },
+        {
+          question: "Can you take on a site you didn't build?",
+          answer:
+            "Yes, if it runs on one of those platforms. Expect a look under the hood before a plan is agreed, because the right tier depends on how the site was built.",
+        },
+        {
+          question: "What happens when I need something new?",
+          answer:
+            "New features, sections, and builds are scoped and quoted separately, as a fixed price or on an hourly basis. Growth and Partner plans include a regular review, so new work gets planned instead of arriving as a rush.",
+        },
+        {
+          question: "How does AI factor into the work?",
+          html: 'Agentic AI tooling does much of the routine coding, and a senior developer reviews and tests every change before it ships. <a href="/process">How the work gets done</a> covers it in detail.',
+        },
+        {
+          question: "I'm a designer. Can my client be on a plan?",
+          answer:
+            "Yes, two ways. Hand the client over and they join a plan directly, while the design work stays with you. Or keep the client, and Box + Pixel looks after the site behind your brand, billed to you.",
+        },
+      ]}
+    />
+  </Section>
+
+  <ServiceCallout
+    eyebrow="Get in touch"
+    title="Not sure which plan fits?"
+    variant="feature"
+    cta={{ href: "/contact", label: "Start a conversation" }}
+  >
+    <p>
+      Share a little about the site: what it does for the business, what's been going
+      wrong, and who looks after it now. You'll get a straight recommendation,
+      even if it's that you don't need a plan yet.
+    </p>
+  </ServiceCallout>
+</Layout>

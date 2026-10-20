@@ -1,0 +1,47 @@
+.list {
+  max-width: 48rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.item {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.question {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-md);
+  padding-block: var(--space-md);
+  color: var(--color-heading);
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  list-style: none;
+}
+
+.question::-webkit-details-marker {
+  display: none;
+}
+
+.question::after {
+  content: "+";
+  flex: none;
+  color: var(--color-accent);
+  font-family: var(--font-family-mono);
+  font-weight: var(--font-weight-regular);
+}
+
+.item[open] .question::after {
+  content: "–";
+}
+
+/* Hover brightens, never darkens: the marker lifts from accent to heading. */
+.question:hover::after {
+  color: var(--color-heading);
+}
+
+.answer {
+  max-width: 60ch;
+  padding-bottom: var(--space-md);
+}

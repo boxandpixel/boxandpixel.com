@@ -1,0 +1,32 @@
+---
+import styles from "./Faq.module.css";
+
+interface Item {
+  question: string;
+  /** Plain text. Use the `html` field instead when an answer needs a link. */
+  answer?: string;
+  html?: string;
+}
+
+interface Props {
+  items: Item[];
+}
+
+const { items } = Astro.props;
+---
+
+{/* Native <details> — works without JS and is keyboard-accessible by default. */}
+<div class={styles.list}>
+  {
+    items.map((item) => (
+      <details class={styles.item}>
+        <summary class={styles.question}>{item.question}</summary>
+        {item.html ? (
+          <p class={styles.answer} set:html={item.html} />
+        ) : (
+          <p class={styles.answer}>{item.answer}</p>
+        )}
+      </details>
+    ))
+  }
+</div>

@@ -1,0 +1,31 @@
+---
+import styles from "./SplitList.module.css";
+
+interface Column {
+  title: string;
+  items: string[];
+  /** `muted` marks the column as the lesser of the two, e.g. exclusions. */
+  tone?: "default" | "muted";
+}
+
+interface Props {
+  columns: [Column, Column];
+}
+
+const { columns } = Astro.props;
+---
+
+<div class={styles.grid}>
+  {
+    columns.map((col) => (
+      <div class={`${styles.column} ${col.tone === "muted" ? styles.muted : ""}`}>
+        <h3 class={styles.title}>{col.title}</h3>
+        <ul class={styles.list} role="list">
+          {col.items.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </div>
+    ))
+  }
+</div>

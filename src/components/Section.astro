@@ -1,0 +1,65 @@
+---
+import styles from "./Section.module.css";
+
+interface Props {
+  /** Small mono label above the title. */
+  eyebrow?: string;
+  title: string;
+  /** Short lead-in under the title. */
+  intro?: string;
+  /** "See more" link to the page this section previews. */
+  link?: { href: string; label: string };
+  /** Button after the content, for a section that leads into a deeper page.
+      Outlined so it never competes with a primary CTA further down. */
+  cta?: { href: string; label: string };
+  /** `surface` gives the band a raised fill so stacked sections alternate. */
+  variant?: "default" | "surface";
+  /** `center` suits a section that asks a question rather than previews a page. */
+  align?: "start" | "center";
+  /** `label` renders the title as a small mono label, for sections whose
+      content carries its own large headings. */
+  titleStyle?: "heading" | "label";
+}
+
+const {
+  eyebrow,
+  title,
+  intro,
+  link,
+  cta,
+  variant = "default",
+  align = "start",
+  titleStyle = "heading",
+} = Astro.props;
+---
+
+<section class={`${styles.section} ${styles[variant]}`}>
+  <div class={styles.bounds}>
+    <header class={`${styles.header} ${styles[align]}`}>
+      <div class={styles.heading}>
+        {eyebrow && <p class={styles.eyebrow}>{eyebrow}</p>}
+        <h2 class={titleStyle === "label" ? styles.labelTitle : styles.title}>
+          {title}
+        </h2>
+        {intro && <p class={styles.intro}>{intro}</p>}
+      </div>
+      {
+        link && (
+          <a class={styles.link} href={link.href}>
+            {link.label} <span aria-hidden="true">→</span>
+          </a>
+        )
+      }
+    </header>
+    <slot />
+    {
+      cta && (
+        <p>
+          <a class={styles.cta} href={cta.href}>
+            {cta.label} <span aria-hidden="true">→</span>
+          </a>
+        </p>
+      )
+    }
+  </div>
+</section>

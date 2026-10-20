@@ -1,0 +1,20 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import ContactForm from "../components/ContactForm.astro";
+import styles from "../styles/contact.module.css";
+---
+
+<Layout
+  title="Contact Box + Pixel — Start a web project"
+  description="Tell Box + Pixel about your site, whether it needs building or looking after. Every message gets a reply within a couple of business days."
+>
+  <Hero
+    headline="Let's talk about your project"
+    subheading="Send over what you're working on and what's getting in the way. Every message gets read, and answered within a couple of business days."
+  />
+
+  <div class={styles.formSection}>
+    <ContactForm />
+  </div>
+</Layout>

@@ -1,0 +1,79 @@
+---
+import styles from "./WorkCards.module.css";
+
+/** A run of summary text, optionally linked — e.g. a design partner's site. */
+type SummaryPart = string | { text: string; href: string };
+
+interface Work {
+  client: string;
+  title: string;
+  summary: string | SummaryPart[];
+  /** Short metric or tenure line, e.g. "In care since 2022". */
+  stat?: string;
+  /** Makes the whole card a link. External URLs open in a new tab. */
+  href?: string;
+}
+
+interface Props {
+  items: Work[];
+}
+
+const { items } = Astro.props;
+
+const isExternal = (href: string) => /^https?:\/\//.test(href);
+---
+
+{/* The card is never an <a> itself: summaries can carry their own links, and
+    links can't nest. Instead the title is the link and stretches over the
+    card (see .cardLink::after), with inline links layered above it. */}
+
+<ul class={styles.grid} role="list">
+  {
+    items.map((item) => {
+      const external = item.href ? isExternal(item.href) : false;
+      return (
+        <li>
+          <div class:list={[styles.card, item.href && styles.linked]}>
+            <p class={styles.client}>{item.client}</p>
+            <h3 class={styles.title}>
+              {item.href ? (
+                <a
+                  class={styles.cardLink}
+                  href={item.href}
+                  target={external ? "_blank" : undefined}
+                  rel={external ? "noopener" : undefined}
+                >
+                  {item.title}
+                  {external && <span class={styles.srOnly}> (opens in a new tab)</span>}
+                </a>
+              ) : (
+                item.title
+              )}
+            </h3>
+            <p class={styles.summary}>
+              {(Array.isArray(item.summary) ? item.summary : [item.summary]).map(
+                (part) =>
+                  typeof part === "string" ? (
+                    part
+                  ) : (
+                    <a
+                      class={styles.inlineLink}
+                      href={part.href}
+                      target={isExternal(part.href) ? "_blank" : undefined}
+                      rel={isExternal(part.href) ? "noopener" : undefined}
+                    >
+                      {part.text}
+                      {isExternal(part.href) && (
+                        <span class={styles.srOnly}> (opens in a new tab)</span>
+                      )}
+                    </a>
+                  ),
+              )}
+            </p>
+            {item.stat && <p class={styles.stat}>{item.stat}</p>}
+          </div>
+        </li>
+      );
+    })
+  }
+</ul>

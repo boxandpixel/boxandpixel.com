@@ -1,0 +1,227 @@
+/* The page ground is already dark, so the hero needs no band of its own —
+   it sits on --color-bg like everything else. */
+.hero {
+  padding-block: var(--space-xl) var(--space-2xl);
+}
+
+.inner {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.start {
+  text-align: start;
+}
+
+.center {
+  text-align: center;
+}
+
+/* Centered text needs the measure centered too, or it hugs the left edge. */
+.center .headline,
+.center .subheading {
+  margin-inline: auto;
+}
+
+.headline {
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  text-wrap: balance;
+}
+
+/* Oversized home-page treatment. Tighter tracking keeps big type from
+   feeling loose, and a short measure forces a deliberate line break. */
+.display {
+  font-size: var(--font-size-display);
+  letter-spacing: -0.035em;
+  line-height: 0.95;
+  max-width: 16ch;
+}
+
+.default {
+  font-size: var(--font-size-h1);
+  letter-spacing: -0.01em;
+  max-width: 20ch;
+}
+
+/* One Dark's keyword purple against the near-black ground. */
+.highlight {
+  color: var(--color-highlight);
+}
+
+/* Block rather than a <br>, so the break is presentational and the phrase
+   still reads as part of one sentence. */
+.ownLine {
+  display: block;
+}
+
+/* Larger type needs a shorter measure and a tighter leading than body copy,
+   or the lines drift apart and the block stops reading as one unit. */
+.subheading {
+  margin-top: var(--space-lg);
+  max-width: 46ch;
+  font-size: var(--font-size-lead);
+  font-weight: var(--font-weight-light);
+  line-height: 1.4;
+  color: var(--color-text);
+  text-wrap: pretty;
+}
+
+/* --- Stage: the home-page hero, pushed forward --------------------------
+   Same content, more presence. Shared by both backdrops: a taller hero that
+   centres the headline in the first screen, a graded headline, and an
+   entrance. The backdrops (.glow, .horizon) are decoration only — tokens at
+   low strength, no new colors. */
+.stage {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  align-items: center;
+  min-height: min(82svh, 56rem);
+  padding-block: var(--space-2xl);
+}
+
+/* Graded headline: full --color-heading at the top, easing toward muted at
+   the bottom, so the block reads as lit from above. The highlight span sets
+   its own color, which paints over the clipped gradient.
+   The gradient only fills the element's box, and at line-height 0.95 the
+   descenders on the last line hang below it and get clipped. The padding
+   extends the box to cover them; the negative margin keeps the spacing. */
+.stage .headline {
+  padding-bottom: 0.15em;
+  margin-bottom: -0.15em;
+  background-image: linear-gradient(
+    180deg,
+    var(--color-heading) 35%,
+    color-mix(in srgb, var(--color-heading) 60%, var(--color-muted))
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.stage .subheading {
+  margin-top: var(--space-xl);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .stage .headline,
+  .stage .subheading {
+    animation: rise 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .stage .subheading {
+    animation-delay: 150ms;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+}
+
+/* --- Glow backdrop: hairline grid + one purple glow ---------------------- */
+.glow::before,
+.glow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Faded out from the centre so it frames the headline rather than covering
+   the page. --color-border alone vanishes at this scale, so the lines are a
+   thinned-out --color-border-strong. */
+.glow::before {
+  --grid-line: color-mix(in srgb, var(--color-border-strong) 28%, transparent);
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 4rem 4rem;
+  background-position: center;
+  mask-image: radial-gradient(
+    ellipse 70% 60% at 50% 45%,
+    #000 10%,
+    transparent 75%
+  );
+}
+
+.glow::after {
+  background: radial-gradient(
+    ellipse 50% 42% at 50% 42%,
+    color-mix(in srgb, var(--color-highlight) 24%, transparent),
+    transparent 70%
+  );
+}
+
+.glow .highlight {
+  text-shadow: 0 0 0.6em color-mix(in srgb, var(--color-highlight) 35%, transparent);
+}
+
+/* --- Horizon backdrop: night sky, lit horizon ----------------------------
+   A nod to the Netscape Navigator throbber, kept suggestive rather than
+   literal: no N, no stars, no meteors, no bevels. The sky deepens toward a
+   thin cyan horizon along the bottom edge of the hero. The highlighted word
+   goes warm, like a comet against the sky.
+
+   The horizon doubles as the top hairline of the section below: the hero
+   pulls up over that 1px border and paints the lit line on top of it, so
+   there is no dead ground and no second rule under the horizon. */
+.horizon {
+  z-index: 1;
+  margin-bottom: -1px;
+}
+
+.sky {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    var(--color-bg) 0%,
+    color-mix(in srgb, var(--color-accent) 5%, var(--color-bg)) 45%,
+    color-mix(in srgb, var(--color-accent) 16%, var(--color-bg)) 100%
+  );
+}
+
+/* The horizon itself: brightest in the middle, fading to nothing at the
+   edges, with a soft bloom rising off it. */
+.sky::before,
+.sky::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+}
+
+/* Above the bloom, which now shares its bottom edge. */
+.sky::before {
+  z-index: 1;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-accent) 50%,
+    transparent
+  );
+}
+
+.sky::after {
+  height: 6rem;
+  background: radial-gradient(
+    ellipse 50% 100% at 50% 100%,
+    color-mix(in srgb, var(--color-accent) 18%, transparent),
+    transparent 70%
+  );
+}
+
+.horizon .highlight {
+  color: var(--color-highlight-warm);
+}

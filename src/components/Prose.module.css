@@ -1,0 +1,35 @@
+/* Same bounds as the hero so the text column lines up with the page title;
+   the 65ch measure is applied to the children, not the container. */
+.prose {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  padding-block: 0 var(--space-2xl);
+  display: grid;
+  justify-items: start;
+  gap: var(--space-md);
+}
+
+.prose > :global(*) {
+  max-width: 65ch;
+}
+
+/* Slot content is authored in the page, so these child selectors are the
+   only way to style it — same pattern as ServiceCallout's body. */
+.prose > :global(h2) {
+  margin-top: var(--space-lg);
+  font-size: var(--font-size-h3);
+}
+
+.prose > :global(ul) {
+  display: grid;
+  gap: var(--space-sm);
+  padding-left: var(--space-lg);
+}
+
+.prose > :global(.meta) {
+  color: var(--color-muted);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-small);
+}

@@ -1,0 +1,35 @@
+---
+import styles from "./AudienceSplit.module.css";
+
+interface Audience {
+  label: string;
+  title: string;
+  body: string;
+  href: string;
+  cta: string;
+}
+
+interface Props {
+  items: Audience[];
+}
+
+const { items } = Astro.props;
+---
+
+<ul class={styles.grid} role="list">
+  {
+    items.map((item) => (
+      <li>
+        <a class={styles.card} href={item.href}>
+          <p class={styles.label}>{item.label}</p>
+          <h3 class={styles.title}>{item.title}</h3>
+          <p class={styles.body}>{item.body}</p>
+          <p class={styles.foot}>
+            <span class={styles.cta}>{item.cta}</span>
+            <span class={styles.arrow} aria-hidden="true">→</span>
+          </p>
+        </a>
+      </li>
+    ))
+  }
+</ul>

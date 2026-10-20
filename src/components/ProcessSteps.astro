@@ -1,0 +1,32 @@
+---
+import styles from "./ProcessSteps.module.css";
+
+interface Step {
+  title: string;
+  body: string;
+  /** One-line mono detail under the body. */
+  detail?: string;
+}
+
+interface Props {
+  steps: Step[];
+}
+
+const { steps } = Astro.props;
+---
+
+{/* An ordered list because the order is the point: discover, build, launch, then care. */}
+<ol class={styles.steps} role="list">
+  {
+    steps.map((step, i) => (
+      <li class={styles.step}>
+        <p class={styles.index} aria-hidden="true">
+          {String(i + 1).padStart(2, "0")}
+        </p>
+        <h3 class={styles.title}>{step.title}</h3>
+        <p class={styles.body}>{step.body}</p>
+        {step.detail && <p class={styles.detail}>{step.detail}</p>}
+      </li>
+    ))
+  }
+</ol>

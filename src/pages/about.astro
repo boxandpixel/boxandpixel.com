@@ -1,0 +1,152 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import Section from "../components/Section.astro";
+import ServiceCallout from "../components/ServiceCallout.astro";
+import styles from "../styles/about.module.css";
+
+/** Headshot in /public/images. Set to null to drop it: the frame then shows
+    in dev only, and the live bio runs single-column. Placeholder image for
+    now, borrowed from briangunzenhauser.com. */
+const photo: string | null = "/images/brian-gunzenhauser.webp";
+const showPhoto = photo !== null || import.meta.env.DEV;
+
+const principles = [
+  {
+    title: "Service comes first",
+    body: "Clear answers, steady communication, and doing what the goal actually needs, even when that's more than the request asked for.",
+  },
+  {
+    title: "The big picture matters",
+    body: "A site involves people across a business, from marketing and content to operations and leadership. Every stakeholder gets consideration before decisions are made.",
+  },
+  {
+    title: "Staying current is part of the job",
+    body: "The web and the tools for building it change fast. Box + Pixel keeps up with both, so your site doesn't fall behind.",
+  },
+];
+---
+
+<Layout
+  title="About Box + Pixel and Brian Gunzenhauser"
+  description="Box + Pixel is a senior-led web studio founded by Brian Gunzenhauser, a technical strategist, educator, and senior developer on the web since 2003."
+>
+  <Hero
+    headline="Your goals set the direction. A senior-led studio gets you there."
+    highlight="A senior-led studio gets you there."
+    highlightOwnLine
+    subheading="Box + Pixel is led by Brian Gunzenhauser, a technical strategist, educator, and senior developer who builds websites and keeps them running for designers, agencies, and the businesses that depend on them."
+  />
+
+  {/* Copy source: refs/page-briefs.md → About notes. Bands: surface →
+      default → surface → feature CTA, so the feature card has its surface
+      predecessor. Each band takes a shape that fits its content: bio beside
+      the photo, the name as a pull quote, the principles as a card row. */}
+  <section class={styles.bio}>
+    <div class:list={[styles.bioInner, showPhoto && styles.withPhoto]}>
+      {
+        photo ? (
+          <img
+            class={styles.photo}
+            src={photo.replace(".webp", "-384.webp")}
+            srcset={`${photo.replace(".webp", "-384.webp")} 384w, ${photo} 600w`}
+            sizes="12rem"
+            alt="Brian Gunzenhauser"
+            width="600"
+            height="600"
+          />
+        ) : (
+          showPhoto && (
+            <div class:list={[styles.photo, styles.photoPlaceholder]}>
+              Photo (dev only)
+            </div>
+          )
+        )
+      }
+      <div class={styles.bioText}>
+        <p class={styles.eyebrow}>Background</p>
+        <h2 class={styles.bioTitle}>Meet Brian</h2>
+        <p>
+          Brian has been working on the web since 2003, with clients including
+          Dansko and Armstrong World Industries, and has been recognized with a
+          Communication Arts Web Pick of the Day on two separate occasions.
+          He started Box + Pixel in 2011, while teaching at the Pennsylvania
+          College of Art & Design. In 2020, Box + Pixel became his full-time
+          focus.
+        </p>
+        <p>
+          Development is Brian's core, with hands-on experience in design,
+          user experience, marketing and analytics, content strategy, and
+          project, account, and team management. That range means that a site gets
+          seen through many lenses, and every stakeholder's view is considered.
+        </p>
+        <p>
+          And the teaching never stopped. Alongside client work, Brian leads
+          technology facilitation and digital transformation sessions with{" "}
+          <a
+            href="https://decoded.com/"
+            target="_blank"
+            rel="noopener"
+            aria-label="Decoded (opens in a new tab)">Decoded</a
+          >{" "}
+          for teams at IBM, Mastercard, the Royal Bank of Canada, and HSBC.
+        </p>
+        <p>
+          You can learn more about Brian at{" "}
+          <a
+            href="https://briangunzenhauser.com/"
+            target="_blank"
+            rel="noopener"
+            aria-label="briangunzenhauser.com (opens in a new tab)"
+            >briangunzenhauser.com</a
+          >.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <Section title="What's in a name?" titleStyle="label" align="center">
+    <blockquote class={styles.quote}>
+      <p>
+        “Web pages are made up of boxes and pixels. Those are your visual
+        constraints. How creative you are within them is up to you. Nearly
+        anything you can think of is possible.”
+      </p>
+    </blockquote>
+    <p class={styles.quoteNote}>
+      Brian kept saying it while teaching students how to style pages and think
+      about web architecture. The studio is named after it.
+    </p>
+  </Section>
+
+  <Section
+    eyebrow="The studio"
+    title="How Box + Pixel works with you"
+    intro="With empathy and understanding at every step, from the first conversation to long after launch. Your website is a critical part of your business, and Box + Pixel treats it that way."
+    variant="surface"
+    cta={{ href: "/process", label: "See the process" }}
+  >
+    <ul class={styles.principles} role="list">
+      {
+        principles.map((item) => (
+          <li class={styles.principle}>
+            <h3 class={styles.principleTitle}>{item.title}</h3>
+            <p>{item.body}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+
+  <ServiceCallout
+    eyebrow="Get in touch"
+    title="What's next for your site?"
+    variant="feature"
+    cta={{ href: "/contact", label: "Start a conversation" }}
+  >
+    <p>
+      Send over what you're working on. You'll get an honest answer on whether
+      it's a good fit and what it would take.
+    </p>
+  </ServiceCallout>
+</Layout>

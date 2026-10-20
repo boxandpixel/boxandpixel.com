@@ -1,0 +1,43 @@
+---
+import styles from "./PlanTiers.module.css";
+
+interface Plan {
+  name: string;
+  price: string;
+  /** Unit after the price, e.g. "/mo". */
+  unit?: string;
+  summary: string;
+  includes: string[];
+}
+
+interface Props {
+  plans: Plan[];
+  /** Line under the tiers, e.g. what's quoted separately. */
+  note?: string;
+}
+
+const { plans, note } = Astro.props;
+---
+
+<div class={styles.wrap}>
+  <ul class={styles.grid} role="list">
+    {
+      plans.map((plan) => (
+        <li class={styles.plan}>
+          <h3 class={styles.name}>{plan.name}</h3>
+          <p class={styles.price}>
+            {plan.price}
+            {plan.unit && <span class={styles.unit}>{plan.unit}</span>}
+          </p>
+          <p class={styles.summary}>{plan.summary}</p>
+          <ul class={styles.includes} role="list">
+            {plan.includes.map((line) => (
+              <li>{line}</li>
+            ))}
+          </ul>
+        </li>
+      ))
+    }
+  </ul>
+  {note && <p class={styles.note}>{note}</p>}
+</div>

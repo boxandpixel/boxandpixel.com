@@ -1,0 +1,108 @@
+.mainNav > ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mainNav > ul a {
+  position: relative;
+  color: var(--color-heading);
+  font-family: var(--font-family-mono);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.mainNav > ul a:hover {
+  color: var(--color-accent);
+}
+
+/* Contact is the one action in the nav. Dark text on the cyan accent — 8.10:1,
+   same treatment as the CTA buttons. */
+.contact {
+  display: inline-block;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  background-color: var(--color-accent);
+  color: var(--color-base);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color var(--transition-base);
+}
+
+.contact:hover,
+.contact[aria-current="page"] {
+  background-color: var(--color-heading);
+  color: var(--color-base);
+}
+
+.current {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.4em;
+}
+
+/* --- Stacked, inside the off-canvas panel --- */
+@media (max-width: 1024px) {
+  .mainNav > ul {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-xs);
+  }
+
+  .mainNav > ul > li {
+    width: 100%;
+  }
+
+  /* Only when it follows the list, i.e. inside the off-canvas panel. With no
+     links the header renders Contact inline instead. */
+  .mainNav > ul + .contact {
+    margin-top: var(--space-lg);
+    padding: var(--space-md) var(--space-lg);
+  }
+
+  /* Full-width rows with a 44px target, rather than small inline text. */
+  .mainNav > ul a {
+    display: block;
+    padding-block: var(--space-sm);
+    font-size: var(--font-size-h4);
+  }
+}
+
+/* --- Inline row with slash separators, from portrait-tablet up --- */
+@media (min-width: 1025px) {
+  .mainNav {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: var(--space-lg);
+  }
+
+  .mainNav > ul {
+    align-items: baseline;
+    gap: calc(var(--space-lg) / 2);
+  }
+
+  .mainNav > ul a {
+    font-size: var(--font-size-small);
+  }
+
+  /* In the text flow rather than absolutely positioned, so the slash shares
+     the links' baseline. Outside the <a> so it isn't part of the link name,
+     and the empty alt text hides it from screen readers. Muted rather than
+     --color-border, which is near-invisible on the dark ground. */
+  .mainNav > ul > li + li::before {
+    content: "/" / "";
+    margin-inline-end: calc(var(--space-lg) / 2);
+    color: var(--color-muted);
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-small);
+  }
+}

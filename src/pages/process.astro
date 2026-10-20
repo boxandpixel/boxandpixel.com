@@ -1,0 +1,93 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import Section from "../components/Section.astro";
+import ProcessSteps from "../components/ProcessSteps.astro";
+import SplitList from "../components/SplitList.astro";
+import ServiceCallout from "../components/ServiceCallout.astro";
+---
+
+<Layout
+  title="Agentic AI web development process — Box + Pixel"
+  description="How Box + Pixel builds, launches, and looks after websites with agentic AI workflows, while the strategy, decisions, and every change stay with a human."
+>
+  <Hero
+    headline="Agentic AI workflows, with a human at the helm."
+    highlight="with a human at the helm."
+    highlightOwnLine
+    subheading="How a site gets built, launched, and looked after, and how every change gets extensive QA before it reaches your visitors."
+  />
+
+  {/* Bands: surface → default → feature CTA. The feature card wants a
+      surface predecessor; with the continuity band gone the AI section sits
+      on the base ground, and the card's border carries the separation. */}
+  <Section
+    eyebrow="The work"
+    title="Discover, build, launch, then keep it healthy"
+    variant="surface"
+  >
+    <ProcessSteps
+      steps={[
+        {
+          title: "Discover",
+          body: "Every project starts with understanding it: what the site needs to do, the goals behind it, and the visitors it has to serve. That shapes the architecture, the priorities, and what success looks like before any code is written.",
+        },
+        {
+          title: "Build",
+          body: "Designs are built with agentic AI workflows that speed up routine development work. A human shapes the strategy, makes the architecture decisions, leads the development, and weighs the tradeoffs. All work is QA'd carefully before launch.",
+        },
+        {
+          title: "Launch",
+          body: "Hosting and DNS are confirmed early, so launch day holds no surprises. The launch is rehearsed on staging first, the site is backed up, and every step is planned for zero downtime. Afterward, the site is monitored closely for 24 to 72 hours to confirm expectations are met.",
+        },
+        {
+          title: "Post-Launch",
+          body: "After launch, Box + Pixel can stay on to keep the site fast, secure, and healthy, and to keep it meeting its goals as the site evolves.",
+        },
+      ]}
+    />
+  </Section>
+
+  <Section
+    eyebrow="AI, with oversight"
+    title="What the agents do, and what a human does"
+    intro="Agentic AI tooling makes routine work fast. It doesn't make decisions, and nothing it touches goes live unchecked. The time it saves goes to your goals, a better user experience, smarter architecture, and more thorough QA."
+  >
+    <SplitList
+      columns={[
+        {
+          title: "Agents",
+          tone: "muted",
+          items: [
+            "Speed up the routine parts of the build",
+            "Handle the repetitive work that used to eat the budget",
+          ],
+        },
+        {
+          title: "A human",
+          items: [
+            "Listens to you and understands your goals and the bigger picture",
+            "Explains the tradeoffs in clear terms",
+            "Chooses the architecture and the tools",
+            "Builds the parts that need judgment",
+            "Reviews every change before it goes live",
+            "Tests and carefully QAs the build",
+            "Pushes updates to your site or the repo",
+          ],
+        },
+      ]}
+    />
+  </Section>
+
+  <ServiceCallout
+    eyebrow="Get in touch"
+    title="What's next for your site?"
+    variant="feature"
+    cta={{ href: "/contact", label: "Start a conversation" }}
+  >
+    <p>
+      Send over what you're working on. You'll get an honest answer on whether
+      it's a good fit and what it would take.
+    </p>
+  </ServiceCallout>
+</Layout>

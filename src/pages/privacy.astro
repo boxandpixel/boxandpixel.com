@@ -1,0 +1,73 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import Prose from "../components/Prose.astro";
+---
+
+<Layout
+  title="Privacy policy — Box + Pixel"
+  description="What boxandpixel.com collects, why it's collected, and what you can ask Box + Pixel to do with it."
+>
+  <Hero headline="Privacy" />
+
+  {/* Drafted from what the site actually does today. Review before launch —
+      this is not legal advice. If the site starts using a newsletter, ads,
+      chat or new analytics, update this page in the same change. */}
+  <Prose>
+    <p class="meta">Last updated September 24, 2026</p>
+
+    <p>
+      This page explains what boxandpixel.com collects, why, and what you can
+      ask Box + Pixel, LLC to do with it. The short version: the site measures
+      how pages are used, and if you send a message, it's used to reply to you.
+      Nothing is sold, and there's no advertising.
+    </p>
+
+    <h2>Analytics</h2>
+    <p>
+      The site uses Google Analytics to understand which pages are useful. It
+      sets cookies and collects information such as the pages you visit, how
+      you arrived, your approximate location, and your device and browser.
+      Google processes this data under{" "}
+      <a href="https://policies.google.com/privacy">its own privacy policy</a>.
+    </p>
+    <p>
+      You can block analytics cookies in your browser settings, or install
+      Google's{" "}
+      <a href="https://tools.google.com/dlpage/gaoptout">opt-out browser add-on</a>.
+    </p>
+
+    <h2>The contact form</h2>
+    <p>
+      When you use the contact form, it collects your name, your email address,
+      and your message. The form sends them by email, through a service called
+      Resend, to Box + Pixel's inbox. They're used to reply to you and nothing
+      else. You won't be added to a mailing list.
+    </p>
+
+    <h2>Hosting</h2>
+    <p>
+      The site is hosted by Netlify, which may keep standard server logs, such
+      as IP addresses, browser type, and request times, for security and
+      reliability.
+    </p>
+
+    <h2>Fonts</h2>
+    <p>
+      Fonts are served from this site, not from a third-party font service, so
+      loading a page doesn't send your details to anyone else for that.
+    </p>
+
+    <h2>What you can ask for</h2>
+    <p>
+      You can ask what information Box + Pixel holds about you, and ask for it
+      to be corrected or deleted. Email{" "}
+      <a href="mailto:hello@boxandpixel.com">hello@boxandpixel.com</a>.
+    </p>
+
+    <h2>Changes</h2>
+    <p>
+      If this page changes, the date at the top changes with it.
+    </p>
+  </Prose>
+</Layout>

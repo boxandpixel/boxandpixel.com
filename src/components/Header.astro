@@ -1,0 +1,179 @@
+---
+import Nav from "./Nav.astro";
+import styles from "./Header.module.css";
+import { navLinks } from "../data/nav";
+
+// A menu toggle that opens onto a single button is a wasted tap, so the
+// off-canvas panel only exists when there are links to put in it.
+const hasMenu = navLinks.length > 0;
+---
+
+<header class={styles.siteHeader}>
+  <div class={styles.inner}>
+    <a class={styles.logoLink} href="/" aria-label="Box + Pixel — home">
+      {/* Light-ink variant — every surface is dark now. `logo.svg` (dark ink)
+          is retained for light contexts like email signatures and decks. */}
+      <img
+        class={styles.logo}
+        src="/images/logo-dark.svg"
+        alt="Box + Pixel"
+        width="200"
+        height="25"
+      />
+    </a>
+
+    {
+      hasMenu ? (
+        <>
+          <button
+            class={styles.toggle}
+            type="button"
+            data-menu-toggle
+            aria-expanded="false"
+            aria-controls="site-menu"
+            aria-label="Open menu"
+          >
+            <svg
+              class={styles.icon}
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              aria-hidden="true"
+            >
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+
+          <div class={styles.panel} id="site-menu" data-menu-panel data-open="false">
+            {/* The open panel sits over the toggle, so it needs its own dismiss. */}
+            <div class={styles.panelHeader}>
+              <button
+                class={styles.close}
+                type="button"
+                data-menu-close
+                aria-label="Close menu"
+              >
+                <svg
+                  class={styles.icon}
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  aria-hidden="true"
+                >
+                  <line x1="5" y1="5" x2="19" y2="19"></line>
+                  <line x1="19" y1="5" x2="5" y2="19"></line>
+                </svg>
+              </button>
+            </div>
+
+            <Nav />
+          </div>
+        </>
+      ) : (
+        <Nav />
+      )
+    }
+  </div>
+
+  {hasMenu && <div class={styles.backdrop} data-menu-backdrop data-open="false"></div>}
+</header>
+
+{/* Inline so it runs during parse, before first paint — a deferred module
+    script would let the un-enhanced nav flash on screen first. */}
+<script is:inline>
+  (function () {
+    var toggle = document.querySelector("[data-menu-toggle]");
+    var panel = document.querySelector("[data-menu-panel]");
+    var backdrop = document.querySelector("[data-menu-backdrop]");
+    var close = document.querySelector("[data-menu-close]");
+    if (!toggle || !panel) return;
+
+    // Off-canvas behaviour is gated on this attribute, so with JS disabled the
+    // nav stays inline and reachable instead of being stranded off-screen.
+    [toggle, panel, backdrop].forEach(function (el) {
+      if (el) el.setAttribute("data-enhanced", "");
+    });
+
+    var isOpen = function () {
+      return panel.getAttribute("data-open") === "true";
+    };
+
+    // Everything focusable inside the panel, in DOM order.
+    var focusables = function () {
+      return Array.prototype.slice.call(panel.querySelectorAll("button, a"));
+    };
+
+    function setOpen(open, moveFocus) {
+      panel.setAttribute("data-open", open ? "true" : "false");
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      if (backdrop) backdrop.setAttribute("data-open", open ? "true" : "false");
+      document.documentElement.classList.toggle("menu-open", open);
+
+      if (!moveFocus) return;
+      if (open) {
+        var first = focusables()[0];
+        if (first) first.focus();
+      } else {
+        toggle.focus();
+      }
+    }
+
+    toggle.addEventListener("click", function () {
+      setOpen(true, true);
+    });
+
+    if (close) {
+      close.addEventListener("click", function () {
+        setOpen(false, true);
+      });
+    }
+
+    if (backdrop) {
+      backdrop.addEventListener("click", function () {
+        setOpen(false, true);
+      });
+    }
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && isOpen()) setOpen(false, true);
+    });
+
+    // Choosing a destination should dismiss the overlay.
+    panel.addEventListener("click", function (event) {
+      if (event.target.closest("a")) setOpen(false, false);
+    });
+
+    // Trap Tab inside the panel while it is open.
+    document.addEventListener("keydown", function (event) {
+      if (event.key !== "Tab" || !isOpen()) return;
+      var items = focusables();
+      if (!items.length) return;
+      var first = items[0];
+      var last = items[items.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+
+    // Growing past the breakpoint reveals the desktop nav; drop the overlay
+    // state so scroll lock cannot survive into a layout that has no toggle.
+    var wide = window.matchMedia("(min-width: 1025px)");
+    wide.addEventListener("change", function (event) {
+      if (event.matches && isOpen()) setOpen(false, false);
+    });
+  })();
+</script>

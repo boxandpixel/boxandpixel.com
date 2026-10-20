@@ -1,0 +1,55 @@
+---
+import styles from "./Hero.module.css";
+
+interface Props {
+  headline: string;
+  subheading?: string;
+  /** Renders the headline as an h1. Set false on pages that already have one. */
+  primary?: boolean;
+  /** `display` is the oversized home-page treatment; `default` suits inner pages. */
+  size?: "display" | "default";
+  align?: "start" | "center";
+  /** Substring of `headline` to accent. Must match the headline exactly. */
+  highlight?: string;
+  /** Puts the highlighted phrase on its own line at every width. */
+  highlightOwnLine?: boolean;
+  /** Home-page stage: a taller hero with a graded headline, plus a backdrop.
+      `glow` is a hairline grid and purple glow; `horizon` is a night sky with
+      a lit horizon, after the Netscape throbber. */
+  stage?: "glow" | "horizon";
+}
+
+const {
+  headline,
+  subheading,
+  primary = true,
+  size = "default",
+  align = "start",
+  highlight,
+  highlightOwnLine = false,
+  stage,
+} = Astro.props;
+
+// Split the headline around the highlighted phrase so it can be wrapped in a
+// span. `split` with a limit of 2 keeps any later occurrence in the tail.
+const [before, ...rest] =
+  highlight && headline.includes(highlight)
+    ? headline.split(highlight)
+    : [headline];
+const after = rest.join(highlight ?? "");
+
+const Tag = primary ? "h1" : "h2";
+---
+
+<section
+  class:list={[styles.hero, stage && [styles.stage, styles[stage]]]}
+>
+  {stage === "horizon" && <div class={styles.sky} aria-hidden="true" />}
+  <div class={`${styles.inner} ${styles[align]}`}>
+    <Tag class={`${styles.headline} ${styles[size]}`}>
+      {before}{rest.length > 0 && <span class:list={[styles.highlight, highlightOwnLine && styles.ownLine]}>{highlight}</span>}{after}
+    </Tag>
+    {subheading && <p class={styles.subheading}>{subheading}</p>}
+    <slot />
+  </div>
+</section>

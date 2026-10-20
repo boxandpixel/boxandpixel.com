@@ -1,0 +1,34 @@
+---
+import styles from "./Footer.module.css";
+
+const year = new Date().getFullYear();
+---
+
+<footer class={styles.footer}>
+  <div class={styles.inner}>
+    <section>
+      <img
+        class={styles.footerLogo}
+        src="/images/logo-dark.svg"
+        alt="Box + Pixel"
+        width="150"
+        height="19"
+      />
+      <p class={styles.tagline}>The web studio that grows with you</p>
+      <a class={styles.emailLink} href="mailto:hello@boxandpixel.com">
+        hello@boxandpixel.com
+      </a>
+    </section>
+
+    <section>
+      <p class={styles.copyright}>
+        Copyright &copy; {year} Box + Pixel, LLC.<br />All rights reserved.
+      </p>
+      <ul class={styles.links} role="list">
+        <li><a href="/about">About</a></li>
+        <li><a href="/process">Process</a></li>
+        <li><a href="/privacy">Privacy</a></li>
+      </ul>
+    </section>
+  </div>
+</footer>

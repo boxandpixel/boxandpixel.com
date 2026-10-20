@@ -1,0 +1,135 @@
+.callout {
+  border-top: 1px solid var(--color-border);
+}
+
+.default {
+  background-color: var(--color-bg);
+}
+
+.surface {
+  background-color: var(--color-surface);
+}
+
+/* Sits on the base ground, not --color-surface. The footer is also surface, so
+   a surface-filled CTA band merged straight into it; base keeps a dark margin
+   around the card on all four sides.
+   This means the preceding callout must be `surface`, or the two base grounds
+   run together and the card reads as part of that section. */
+.feature {
+  background-color: var(--color-bg);
+  padding-block: var(--space-2xl) var(--space-xl);
+}
+
+.bounds {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.inner {
+  padding-block: var(--space-xl);
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.eyebrow {
+  margin-bottom: var(--space-sm);
+  color: var(--color-accent);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.title {
+  font-size: var(--font-size-h2);
+  text-wrap: balance;
+}
+
+.body {
+  max-width: 60ch;
+}
+
+/* Space out multiple paragraphs passed through the slot. */
+.body > :global(p + p) {
+  margin-top: var(--space-md);
+}
+
+.ctaWrap {
+  margin-top: var(--space-lg);
+}
+
+/* Dark text on the cyan accent — 8.10:1. */
+.cta {
+  display: inline-block;
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-md);
+  background-color: var(--color-accent);
+  color: var(--color-base);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  transition:
+    background-color var(--transition-base),
+    transform var(--transition-base);
+}
+
+.cta:hover {
+  background-color: var(--color-heading);
+  color: var(--color-base);
+}
+
+/* --- Feature card ---
+   A single centred column so it reads as an invitation to act, rather than
+   another two-column band of description. */
+.feature .inner {
+  padding: var(--space-xl) var(--space-lg);
+  justify-items: center;
+  text-align: center;
+  border: 1px solid color-mix(in srgb, var(--color-accent) 50%, transparent);
+  border-radius: calc(var(--radius-md) * 2);
+  background-color: color-mix(in srgb, var(--color-accent) 7%, var(--color-surface));
+  /* Accent-tinted lift, so the card reads as raised rather than just filled. */
+  box-shadow: 0 1.5rem 3rem -1.5rem
+    color-mix(in srgb, var(--color-accent) 30%, transparent);
+}
+
+.feature .body {
+  max-width: 46ch;
+}
+
+.feature .cta {
+  padding: var(--space-md) var(--space-xl);
+}
+
+.feature .cta:hover {
+  transform: translateY(-1px);
+}
+
+@media (min-width: 60rem) {
+  .inner {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+    gap: var(--space-xl);
+    padding-block: var(--space-2xl);
+  }
+
+  .heading {
+    position: sticky;
+    top: calc(var(--space-2xl) + var(--space-md));
+    align-self: start;
+  }
+
+  /* Stay single-column and centred; a sticky heading inside a card is wrong. */
+  .feature .inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-lg);
+    padding: var(--space-2xl) var(--space-xl);
+  }
+
+  .feature .heading {
+    position: static;
+  }
+}

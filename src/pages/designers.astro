@@ -1,0 +1,114 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import Section from "../components/Section.astro";
+import ProcessSteps from "../components/ProcessSteps.astro";
+import WorkCards from "../components/WorkCards.astro";
+import SplitList from "../components/SplitList.astro";
+import ServiceCallout from "../components/ServiceCallout.astro";
+---
+
+<Layout
+  title="Development partner for designers — Box + Pixel"
+  description="Development for designers and agencies. Box + Pixel builds, launches, and looks after the sites you design, and the design work comes back to you."
+>
+  <Hero
+    headline="Your design, built and kept running."
+    highlight="kept running"
+    subheading="You shouldn't be on call for a site you designed two years ago. Box + Pixel builds it, launches it, and looks after it, and the design work always comes back to you."
+  />
+
+  {/* Bands: surface → default → surface → feature CTA. WorkCards sit on the
+      default band because their cards take the surface fill.
+
+      Referral terms are deliberately absent until the Boldworld conversation
+      has happened — see refs/box-and-pixel-positioning-2026-09.md. */}
+  <Section
+    eyebrow="How it works"
+    title="From your Figma file to years of care"
+    variant="surface"
+    link={{ href: "/process", label: "How the work gets done" }}
+  >
+    <ProcessSteps
+      steps={[
+        {
+          title: "Build",
+          body: "You hand over the Figma file. It's built with agentic AI tooling and reviewed by a senior developer, with the hover states, spacing, and edge cases you didn't have time to spec. Design questions come to you.",
+          detail: "Figma to code, reviewed",
+        },
+        {
+          title: "Launch",
+          body: "Hosting, DNS, and the launch checklist are handled for you. The domain and hosting go in your client's name, so nobody is ever locked out.",
+          detail: "Client owns the accounts",
+        },
+        {
+          title: "After launch",
+          body: "Updates, fixes, and emergencies go to Box + Pixel, not you. When the client wants a redesign, a campaign, or a new section, that comes back to you.",
+          detail: "Design work returns to you",
+        },
+      ]}
+    />
+  </Section>
+
+  <Section
+    eyebrow="Proof"
+    title="Designed by Iris A. Brown Design, built by Box + Pixel"
+  >
+    <WorkCards
+      items={[
+        {
+          client: "One Story",
+          title: "Built in 2022 and still in Box + Pixel's care",
+          summary: "Member accounts, gift subscriptions, and store work since launch. The design relationship stayed with Iris.",
+          stat: "In care since 2022",
+        },
+        {
+          client: "52nd Street Project",
+          title: "A full site build from design files to launch",
+          summary: "Built from Iris A. Brown Design's designs and taken through to launch.",
+          stat: "Built 2023",
+        },
+      ]}
+    />
+  </Section>
+
+  <Section
+    eyebrow="Two ways to work together"
+    title="Hand it off, or keep the client"
+    intro="Either way, the design relationship is yours."
+    variant="surface"
+  >
+    <SplitList
+      columns={[
+        {
+          title: "Hand it off",
+          items: [
+            "After launch, your client joins a Box + Pixel care plan directly",
+            "You're off the hook for maintenance and emergencies",
+            "Redesigns, campaigns, and new sections come back to you",
+          ],
+        },
+        {
+          title: "Keep the client",
+          items: [
+            "You stay your client's only contact",
+            "Box + Pixel builds and maintains the site behind your brand, billed to you",
+            "You set your own price for ongoing care",
+          ],
+        },
+      ]}
+    />
+  </Section>
+
+  <ServiceCallout
+    eyebrow="Get in touch"
+    title="Have a design that needs building?"
+    variant="feature"
+    cta={{ href: "/contact", label: "Talk about a project" }}
+  >
+    <p>
+      Send over what you're designing, the client, and the timeline. You'll get
+      an honest answer on fit, and on which way of working makes sense.
+    </p>
+  </ServiceCallout>
+</Layout>

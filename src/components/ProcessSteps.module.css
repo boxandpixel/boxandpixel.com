@@ -1,0 +1,50 @@
+.steps {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+/* Two by two before one row, so four steps keep a readable measure. The wide
+   layout flows into columns so three steps or four both fill the row. */
+@media (min-width: 50em) {
+  .steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 72em) {
+  .steps {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+  }
+}
+
+/* The top rule on each step reads as a timeline when the columns sit side
+   by side, and as plain separators when they stack. */
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-border);
+}
+
+.index {
+  color: var(--color-accent);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-semibold);
+}
+
+.title {
+  font-size: var(--font-size-h3);
+}
+
+
+.detail {
+  margin-top: auto;
+  padding-top: var(--space-sm);
+  color: var(--color-muted);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+}

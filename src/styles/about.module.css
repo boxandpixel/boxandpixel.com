@@ -1,0 +1,123 @@
+/* --- Background band ---------------------------------------------------
+   Built by hand rather than with Section, because the photo has to sit
+   beside the heading, and Section always puts its header above the slot.
+   Fill and spacing match Section's surface variant. */
+.bio {
+  border-top: 1px solid var(--color-border);
+  padding-block: var(--space-xl);
+  background-color: var(--color-surface);
+}
+
+.bioInner {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  display: grid;
+  gap: var(--space-lg);
+  align-items: center;
+}
+
+.bioText {
+  display: grid;
+  gap: var(--space-md);
+  max-width: 60ch;
+}
+
+.eyebrow {
+  color: var(--color-accent);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.bioTitle {
+  font-size: var(--font-size-h2);
+}
+
+/* Shown in dev only until a headshot exists, so the live page never ships an
+   empty frame. */
+/* The headshot ships pre-cropped to a circle with transparent corners, so the
+   frame is square and round to match; the radius only shapes the dev
+   placeholder. Smaller on phones, where it stacks above the text. */
+.photo {
+  width: 100%;
+  max-width: 12rem;
+  /* Without this the img's height="600" attribute wins over aspect-ratio
+     and the circle stretches into an oval. */
+  height: auto;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.photoPlaceholder {
+  display: grid;
+  place-items: center;
+  border: 1px dashed var(--color-border-strong);
+  color: var(--color-muted);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+}
+
+@media (min-width: 50em) {
+  .withPhoto {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    gap: var(--space-xl);
+  }
+
+  .photo {
+    max-width: 20rem;
+    justify-self: center;
+  }
+}
+
+/* --- Name band: a centred pull quote ------------------------------------ */
+.quote {
+  max-width: 28ch;
+  margin-inline: auto;
+  color: var(--color-heading);
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  letter-spacing: -0.01em;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.quoteNote {
+  max-width: 52ch;
+  margin-inline: auto;
+  color: var(--color-muted);
+  text-align: center;
+  text-wrap: pretty;
+}
+
+/* --- How I work: three principles --------------------------------------- */
+.principles {
+  display: grid;
+  gap: var(--space-md);
+}
+
+@media (min-width: 50em) {
+  .principles {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Same card treatment as WorkCards; --card-fill comes from the Section band. */
+.principle {
+  display: grid;
+  align-content: start;
+  gap: var(--space-sm);
+  padding: var(--space-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--card-fill, var(--color-bg));
+}
+
+.principleTitle {
+  font-size: var(--font-size-h4);
+}

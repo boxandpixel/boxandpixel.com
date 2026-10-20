@@ -1,0 +1,7 @@
+.formSection {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  padding-bottom: var(--space-2xl);
+}

@@ -1,0 +1,42 @@
+---
+import styles from "./Nav.module.css";
+import { navLinks as links } from "../data/nav";
+
+// Contact is the action, not a page among pages, so it sits outside the list
+// as a button.
+const contact = { href: "/contact", label: "Contact" };
+
+const { pathname } = Astro.url;
+
+// Matches the section too, so /work/foo keeps /work current.
+const isCurrent = (href: string) =>
+  href === pathname || href === pathname.replace(/\/$/, "") ||
+  pathname.startsWith(`${href}/`);
+---
+
+<nav class={styles.mainNav} aria-label="Main">
+  {
+    links.length > 0 && (
+      <ul role="list">
+        {links.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class={isCurrent(link.href) ? styles.current : undefined}
+              aria-current={isCurrent(link.href) ? "page" : undefined}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+  <a
+    class={styles.contact}
+    href={contact.href}
+    aria-current={isCurrent(contact.href) ? "page" : undefined}
+  >
+    {contact.label}
+  </a>
+</nav>

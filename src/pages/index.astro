@@ -1,145 +1,89 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Card from "../components/Card.astro";
+import Hero from "../components/Hero.astro";
+import Section from "../components/Section.astro";
+// import WorkCards from "../components/WorkCards.astro";
+import ServiceCallout from "../components/ServiceCallout.astro";
 ---
 
-<Layout title="Box + Pixel - Great website experiences">
-  <header class="container mx-auto px-5 py-12">
-    <img src="/box+pixel.svg" alt="Box + Pixel" width="200" />
-  </header>
-  <main>
-    <div class="container mx-auto px-5 pt-10">
-      <h1
-        class="font-figtree text-[56px] leading-tight font-bold text-gray-200"
-        style="text-wrap: balance;"
-      >
-        Creating great website experiences that move you forward
-      </h1>
-    </div>
+<Layout
+  title="Box + Pixel — Boutique web development studio"
+  description="A boutique web studio that builds, launches, and looks after WordPress, Next.js, and Astro sites, with agentic AI workflows and a human at the helm."
+>
+  <Hero
+    size="display"
+    align="center"
+    stage="horizon"
+    headline="The web studio that grows with you."
+    highlight="grows"
+    subheading="Box + Pixel builds, launches, and keeps your site secure, fast, and growing for the long term."
+  />
 
-    <div class="bg-gradient-to-b from-dark via-blueDark to-dark">
-      <div
-        class="container mx-auto flex flex-col xl:grid xl:grid-cols-3 xl:gap-x-20 gap-y-20 px-5 py-40"
-      >
-        <section>
-          <h2 class="text-3xl text-slate-100 font-bold">Marketing Websites</h2>
-          <p class="text-lg text-slate-100">
-            Combining effective design, smart development, accessibility, and
-            technical search engine optimization to ensure you're found easily.
-          </p>
-        </section>
+  {/* Band sequence: surface → feature CTA.
+      `feature` needs a `surface` predecessor or the CTA card merges into the
+      band above, so whichever band sits just before it takes the surface
+      fill. Cards take the opposite fill of the band they sit in (Section
+      sets --card-fill).
 
-        <section>
-          <h2 class="text-3xl text-slate-100 font-bold">Partnerships</h2>
-          <p class="text-lg text-slate-100">
-            Bringing your designs and ideas to life through trusted development
-            partnerships with designers and agencies.
-          </p>
-        </section>
+      Selected work is parked until case studies are approved. To restore it,
+      uncomment the block below, uncomment the WorkCards import, and set the
+      About band back to the default variant (Selected work takes surface).
+      It has no "All work" link until /work is built. */}
+  <Section
+    eyebrow="About"
+    title="A senior-led studio, since 2011"
+    intro="Box + Pixel is led by Brian Gunzenhauser, a technical strategist, educator, and senior developer working on the web since 2003. Every project starts from your goals, and every decision is measured against them."
+    cta={{ href: "/about", label: "More about Box + Pixel" }}
+    variant="surface"
+  />
 
-        <section>
-          <h2 class="text-3xl text-slate-100 font-bold">
-            Consulting &amp; Training
-          </h2>
-          <p class="text-lg text-slate-100">
-            Leading high-impact technical training to help you and your team
-            stay right on the edge of what's possible and what's next.
-          </p>
-        </section>
-      </div>
-    </div>
-    <!--
-    <ul role="list" class="link-card-grid">
-      <Card
-        href="https://docs.astro.build/"
-        title="Documentation"
-        body="Learn how Astro works and explore the official API docs."
-      />
-      <Card
-        href="https://astro.build/integrations/"
-        title="Integrations"
-        body="Supercharge your project with new frameworks and libraries."
-      />
-      <Card
-        href="https://astro.build/themes/"
-        title="Themes"
-        body="Explore a galaxy of community-built starter themes."
-      />
-      <Card
-        href="https://astro.build/chat/"
-        title="Community"
-        body="Come say hi to our amazing Discord community. ❤️"
-      />
-    </ul>
-	 -->
-  </main>
-  <footer class="container mx-auto px-5 py-5 flex flex-col gap-5">
-    <section>
-      <img src="/box+pixel.svg" alt="Box + Pixel" width="150" />
-      <p class="text-sm text-grayVeryLight font-light">
-        A website experience company
-      </p>
-    </section>
+  {/*
+  <Section
+    eyebrow="Selected work"
+    title="Sites in Box + Pixel's care"
+    variant="surface"
+  >
+    <WorkCards
+      items={[
+        {
+          client: "Summers & Zim's",
+          title: "Design, development, and proactive management for a home services company",
+          summary: "With no outside designer involved, the designs were shaped directly with the client, then built, tested, and kept fast and secure. The relationship predates the studio: Brian has worked with them since 2008.",
+          stat: "18+ years",
+          href: "https://sumzim.com",
+        },
+        {
+          client: "Northern Virginia Magazine",
+          title: "Technical strategy and development for a regional magazine",
+          summary: "A custom directory, Google News and Discover visibility, and the Best of NoVA Soiree and Taste of NoVA microsites. Box + Pixel developed the magazine's 2020 redesign, then was hired again for the 2026 one.",
+          stat: "6+ years",
+          href: "https://northernvirginiamag.com",
+        },
+        {
+          client: "One Story",
+          title: "E-commerce development for a literary magazine",
+          summary: [
+            "Designed by ",
+            { text: "Iris A. Brown Design", href: "https://iabdny.com/" },
+            ", built by Box + Pixel. A custom WooCommerce migration for subscriptions, gifting, and memberships, and a steady run of new features since launch.",
+          ],
+          stat: "4+ years",
+          href: "https://one-story.com",
+        },
+      ]}
+    />
+  </Section>
+  */}
 
-    <section>
-      <a
-        href="mailto:hello@boxandpixel.com"
-        class="text-sm text-yellow leading-none text-grayVeryLight"
-        >hello@boxandpixel.com</a
-      >
-    </section>
-
-    <section>
-      <p class="text-xs text-grayVeryLight">
-        Copyright &copy; 2023 Box + Pixel, LLC.<br />All rights reserved.
-      </p>
-    </section>
-  </footer>
+  <ServiceCallout
+    eyebrow="Get in touch"
+    title="What's next for your site?"
+    variant="feature"
+    cta={{ href: "/contact", label: "Start a conversation" }}
+  >
+    <p>
+      Send over what you're working on. You'll get an honest answer on whether
+      it's a good fit and what it would take.
+    </p>
+  </ServiceCallout>
 </Layout>
-
-<style>
-  /*
-  main {
-    margin: auto;
-    padding: 1.5rem;
-    max-width: 60ch;
-  }
-  h1 {
-    font-size: 3rem;
-    font-weight: 800;
-    margin: 0;
-  }
-  .text-gradient {
-    background-image: var(--accent-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-size: 400%;
-    background-position: 0%;
-  }
-  .instructions {
-    line-height: 1.6;
-    margin: 1rem 0;
-    border: 1px solid rgba(var(--accent), 25%);
-    background-color: white;
-    padding: 1rem;
-    border-radius: 0.4rem;
-  }
-  .instructions code {
-    font-size: 0.875em;
-    font-weight: bold;
-    background: rgba(var(--accent), 12%);
-    color: rgb(var(--accent));
-    border-radius: 4px;
-    padding: 0.3em 0.45em;
-  }
-  .instructions strong {
-    color: rgb(var(--accent));
-  }
-  .link-card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
-    gap: 1rem;
-    padding: 0;
-  }
-  */
-</style>

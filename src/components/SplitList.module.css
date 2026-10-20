@@ -1,0 +1,58 @@
+.grid {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+@media (min-width: 45em) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.column {
+  display: grid;
+  align-content: start;
+  gap: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-accent);
+}
+
+.title {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.list {
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.list li {
+  position: relative;
+  padding-left: var(--space-lg);
+}
+
+.list li::before {
+  content: "+";
+  position: absolute;
+  left: 0;
+  color: var(--color-accent);
+  font-family: var(--font-family-mono);
+}
+
+/* The secondary column steps back: muted rule, muted marker. */
+.muted {
+  border-top-color: var(--color-border-strong);
+}
+
+.muted .title {
+  color: var(--color-muted);
+}
+
+.muted .list li::before {
+  content: "–";
+  color: var(--color-muted);
+}

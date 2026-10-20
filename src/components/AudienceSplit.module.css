@@ -1,0 +1,115 @@
+.grid {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+@media (min-width: 45em) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* A fork in the path: two large signposts, each one whole link. The bound is
+   --color-border-strong because these are the primary interactive targets on
+   the page, not decoration. Hover lights the bound with the accent and pushes
+   the arrow forward, so the card reads as a direction to go in. */
+.card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-xl) var(--space-lg);
+  border: 1px solid var(--color-border-strong);
+  border-radius: calc(var(--radius-md) * 2);
+  background-color: var(--card-fill, var(--color-surface));
+  color: var(--color-text);
+  text-decoration: none;
+  transition:
+    border-color var(--transition-base),
+    background-color var(--transition-base);
+}
+
+.card:hover {
+  color: var(--color-text);
+  border-color: var(--color-accent);
+  background-color: color-mix(
+    in srgb,
+    var(--color-accent) 6%,
+    var(--card-fill, var(--color-surface))
+  );
+}
+
+@media (min-width: 45em) {
+  .card {
+    min-height: 26rem;
+    padding: var(--space-xl);
+  }
+}
+
+.label {
+  color: var(--color-accent);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.title {
+  max-width: 16ch;
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+}
+
+.body {
+  max-width: 48ch;
+}
+
+/* margin-top: auto pins the footer to the bottom so both cards line up. */
+.foot {
+  margin-top: auto;
+  padding-top: var(--space-lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+.cta {
+  color: var(--color-accent);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-semibold);
+  transition: color var(--transition-base);
+}
+
+.card:hover .cta {
+  color: var(--color-heading);
+}
+
+/* Dark on cyan when active — 8.10:1. */
+.arrow {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 50%;
+  color: var(--color-accent);
+  font-size: var(--font-size-h3);
+  line-height: 1;
+  transition:
+    background-color var(--transition-base),
+    border-color var(--transition-base),
+    color var(--transition-base),
+    transform var(--transition-base);
+}
+
+.card:hover .arrow {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent);
+  color: var(--color-base);
+  transform: translateX(var(--space-xs));
+}

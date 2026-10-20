@@ -1,0 +1,112 @@
+.section {
+  border-top: 1px solid var(--color-border);
+  padding-block: var(--space-xl);
+}
+
+/* --card-fill is the opposite of the band's fill, so cards inside a section
+   stay distinct from it whichever variant the band uses. */
+.default {
+  background-color: var(--color-bg);
+  --card-fill: var(--color-surface);
+}
+
+.surface {
+  background-color: var(--color-surface);
+  --card-fill: var(--color-bg);
+}
+
+.bounds {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  display: grid;
+  gap: var(--space-lg);
+}
+
+/* Title left, "see more" link right on wide screens; stacked on narrow. */
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--space-md) var(--space-lg);
+}
+
+.center {
+  justify-content: center;
+  text-align: center;
+}
+
+.center .heading {
+  justify-items: center;
+}
+
+.heading {
+  display: grid;
+  gap: var(--space-sm);
+  max-width: 60ch;
+}
+
+.eyebrow {
+  color: var(--color-accent);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.title {
+  font-size: var(--font-size-h2);
+}
+
+/* A label-sized title for a section whose content already carries large
+   headings, so the title introduces the cards instead of competing with them.
+   Still the section's h2 for the document outline. */
+.labelTitle {
+  color: var(--color-accent);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.intro {
+  color: var(--color-text);
+}
+
+.link {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+/* Second-tier action: the accent as an outline rather than a fill, so the
+   filled contact CTA stays the one primary button on the page. */
+.cta {
+  display: inline-block;
+  padding: var(--space-sm) var(--space-lg);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-md);
+  color: var(--color-accent);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  transition:
+    color var(--transition-base),
+    border-color var(--transition-base);
+}
+
+.cta:hover {
+  border-color: var(--color-heading);
+  color: var(--color-heading);
+}
