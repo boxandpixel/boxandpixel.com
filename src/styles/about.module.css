@@ -87,6 +87,12 @@
   text-wrap: balance;
 }
 
+/* The closing sentence, picked out in the display accent. The closing
+   quote mark sits outside the span so it stays the heading color. */
+.quoteKicker {
+  color: var(--color-highlight);
+}
+
 .quoteNote {
   max-width: 52ch;
   margin-inline: auto;
